@@ -343,7 +343,7 @@ int main() {
 
 
     add_value (NULL, 0, 1, &err);
-    fprintf (stdout, "Test_41_add_valuee_to_NULL_graph:\n");
+    fprintf (stdout, "Test_41_add_value_to_NULL_graph:\n");
     if (err != EINVARG)
         fprintf (stdout, "Test_41\t failed\n\n");
     else
@@ -390,7 +390,62 @@ int main() {
     else
         fprintf (stdout, "Test_6\t passed\n\n");
     
+
+
+
+
+
+    add_or_replace_value (NULL, 0, 1, &err);
+    fprintf (stdout, "Test_47_add_or_replace_value_to_NULL_graph:\n");
+    if (err != EINVARG)
+        fprintf (stdout, "Test_47\t failed\n\n");
+    else
+        fprintf (stdout, "Test_47\t passed\n\n");
+    err = ESUCCESS;
+    add_or_replace_value (gr, -1, 1, &err);
+    fprintf (stdout, "Test_48_add_or_replace_value_to_vertex_<_0:\n");
+    if (err != EINVARG)
+        fprintf (stdout, "Test_48\t failed\n\n");
+    else
+        fprintf (stdout, "Test_48\t passed\n\n");
+    err = ESUCCESS;
+    add_or_replace_value (gr, n, 1, &err);
+    fprintf (stdout, "Test_49_add_or_replace_value_to_vertex_>_n:\n");
+    if (err != EINVARG)
+        fprintf (stdout, "Test_49\t failed\n\n");
+    else
+        fprintf (stdout, "Test_49\t passed\n\n");
+    err = ESUCCESS;
+    add_or_replace_value (gr, 0, -1, &err);
+    fprintf (stdout, "Test_50_add_or_replace_value_<_0:\n");
+    if (err != EINVARG)
+        fprintf (stdout, "Test_50\t failed\n\n");
+    else
+        fprintf (stdout, "Test_50\t passed\n\n");
+    add_or_replace_value  (gr, 1, 1, &err);
+    fprintf (stdout, "Test_51_add_or_replace_value:\n");
+    if (err != ESUCCESS || gr->key[1].value != 1)
+        fprintf (stdout, "Test_51\t failed\n\n");
+    else
+        fprintf (stdout, "Test_51\t passed\n\n");
+    add_or_replace_value (gr, 1, 2, &err);
+    fprintf (stdout, "Test_46_add_or_replace_value_already_exists:\n");
+    if (err != ESUCCESS || gr->key[1].value != 2)
+        fprintf (stdout, "Test_52\t failed\n\n");
+    else
+        fprintf (stdout, "Test_52\t passed\n\n");
     
+
+    print_graph (gr, &err);
+    fprintf (stdout, "Test_6_print_graph:\n");
+    if (err != ESUCCESS)
+        fprintf (stdout, "Test_6\t failed\n\n");
+    else
+        fprintf (stdout, "Test_6\t passed\n\n");
+
+
+
+
 
 
 

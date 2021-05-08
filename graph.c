@@ -227,3 +227,8 @@ void add_value (graph *gr, int vertex_key, int recieved_value, GRAPH_ERR *err) {
     int x = value (gr, vertex_key, recieved_value, err, 1, 0);
     return;
 }
+
+void add_or_replace_value (graph *gr, int vertex_key, int recieved_value, GRAPH_ERR *err) {
+    int x = value (gr, vertex_key, recieved_value, err, 1, 1);
+    return;
+}
