@@ -230,7 +230,7 @@ int value (graph *gr, int vertex_key, int recieved_value, GRAPH_ERR *err, _Bool 
                 fprintf (stdout, "The value doesn't exist");
                 if (err != NULL)
                     *err = ENEXIST;
-                return 0;
+                return -2;
             }
             else {
                 if (err != NULL)

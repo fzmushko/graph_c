@@ -523,7 +523,7 @@ int main() {
         fprintf (stdout, "Test_61\t passed\n\n");
     x = get_value (gr, 0, &err);
     fprintf (stdout, "Test_62_vertex_with_no_value:\n");
-    if (err != ENEXIST || x != 0)
+    if (err != ENEXIST || x != -2)
         fprintf (stdout, "Test_62\t failed\n\n");
     else
         fprintf (stdout, "Test_62\t passed\n\n");
