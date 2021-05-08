@@ -51,9 +51,14 @@ int main() {
     
 
 
-
+    print_graph (NULL, &err);
+    fprintf (stdout, "Test_6_1_print_NULL_graph:\n");
+    if (err != EINVARG)
+        fprintf (stdout, "Test_6\t failed\n\n");
+    else
+        fprintf (stdout, "Test_6\t passed\n\n");
     print_graph (gr, &err);
-    fprintf (stdout, "Test_6_print_graph:\n");
+    fprintf (stdout, "Test_6_2_print_graph:\n");
     if (err != ESUCCESS)
         fprintf (stdout, "Test_6\t failed\n\n");
     else

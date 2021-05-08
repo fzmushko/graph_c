@@ -227,7 +227,7 @@ int value (graph *gr, int vertex_key, int recieved_value, GRAPH_ERR *err, _Bool 
         }
         else {
             if (gr->key[vertex_key].value == vertex_without_value) {
-                fprintf (stdout, "The value doesn't exist");
+                fprintf (stdout, "The value doesn't exist\n");
                 if (err != NULL)
                     *err = ENEXIST;
                 return -2;
