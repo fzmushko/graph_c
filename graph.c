@@ -206,7 +206,7 @@ int value (graph *gr, int vertex_key, int recieved_value, GRAPH_ERR *err, _Bool 
     }
     if (true_if_add) {
         if (!true_if_replace_or_remove && gr->key[vertex_key].value != -1) {
-            fprintf (stdout, "The value already exists");
+            fprintf (stdout, "The value already exists\n");
             if (err != NULL)
                 *err = EEXIST;
             return -1;

@@ -336,7 +336,59 @@ int main() {
         fprintf (stdout, "Test_6\t failed\n\n");
     else
         fprintf (stdout, "Test_6\t passed\n\n");
+    
 
+
+
+
+
+    add_value (NULL, 0, 1, &err);
+    fprintf (stdout, "Test_41_add_valuee_to_NULL_graph:\n");
+    if (err != EINVARG)
+        fprintf (stdout, "Test_41\t failed\n\n");
+    else
+        fprintf (stdout, "Test_41\t passed\n\n");
+    err = ESUCCESS;
+    add_value (gr, -1, 1, &err);
+    fprintf (stdout, "Test_42_add_value_to_vertex_<_0:\n");
+    if (err != EINVARG)
+        fprintf (stdout, "Test_42\t failed\n\n");
+    else
+        fprintf (stdout, "Test_42\t passed\n\n");
+    err = ESUCCESS;
+    add_value (gr, n, 1, &err);
+    fprintf (stdout, "Test_43_add_value_to_vertex_>_n:\n");
+    if (err != EINVARG)
+        fprintf (stdout, "Test_43\t failed\n\n");
+    else
+        fprintf (stdout, "Test_43\t passed\n\n");
+    err = ESUCCESS;
+    add_value (gr, 0, -1, &err);
+    fprintf (stdout, "Test_44_add_value_<_0:\n");
+    if (err != EINVARG)
+        fprintf (stdout, "Test_44\t failed\n\n");
+    else
+        fprintf (stdout, "Test_44\t passed\n\n");
+    add_value  (gr, 0, 1, &err);
+    fprintf (stdout, "Test_45_add_value:\n");
+    if (err != ESUCCESS || gr->key[0].value != 1)
+        fprintf (stdout, "Test_45\t failed\n\n");
+    else
+        fprintf (stdout, "Test_45\t passed\n\n");
+    add_value (gr, 0, 2, &err);
+    fprintf (stdout, "Test_46_add_value_already_exists:\n");
+    if (err != EEXIST || gr->key[0].value != 1)
+        fprintf (stdout, "Test_46\t failed\n\n");
+    else
+        fprintf (stdout, "Test_46\t passed\n\n");
+    
+
+    print_graph (gr, &err);
+    fprintf (stdout, "Test_6_print_graph:\n");
+    if (err != ESUCCESS)
+        fprintf (stdout, "Test_6\t failed\n\n");
+    else
+        fprintf (stdout, "Test_6\t passed\n\n");
     
     
 
