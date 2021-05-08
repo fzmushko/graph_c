@@ -25,19 +25,17 @@ void remove_graph (graph **gr, GRAPH_ERR *err);
 
 void print_graph (graph *gr, GRAPH_ERR *err);
 
-void edge (graph *gr, int from, int to, int cost, GRAPH_ERR *err, _Bool replace);
+int edge (graph *gr, int from, int to, int cost, GRAPH_ERR *err, _Bool true_if_add, _Bool true_if_replace_or_remove);
 
 void add_edge (graph *gr, int from, int to, int cost, GRAPH_ERR *err);
 
 void add_or_replace_edge (graph *gr, int from, int to, int cost, GRAPH_ERR *err);
 
+void remove_edge (graph *gr, int from, int to, GRAPH_ERR *err);
 
+int edge_cost (graph *gr, int from, int to, GRAPH_ERR *err);
 
 /*
-void remove_edge (int u, int v, GRAPH_ERR *err);
-
-int edge_cost (int u, int v, GRAPH_ERR *err);
-
 void add_value (int u, int vl, GRAPH_ERR *err);
 
 void add_or_replace_value (int u, int vl, GRAPH_ERR *err);

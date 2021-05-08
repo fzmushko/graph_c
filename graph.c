@@ -61,7 +61,8 @@ void remove_graph (graph **gr, GRAPH_ERR *err) {
     free ((*gr)->key);
     free (*gr);
     *gr = NULL;
-    *err = ESUCCESS;
+    if (err != NULL)
+        *err = ESUCCESS;
     return;
 }
 
@@ -84,62 +85,102 @@ void print_graph (graph *gr, GRAPH_ERR *err) {
     }
     for (int i = 0; i < gr->number_of_vertices; i++)
         fprintf (stdout, "%d\t%d\n", i, gr->key[i].value);
-    *err = ESUCCESS;
+    if (err != NULL)
+        *err = ESUCCESS;
     return;
 }
 
-void edge (graph *gr, int from, int to, int cost, GRAPH_ERR *err, _Bool replace) {
+int edge (graph *gr, int from, int to, int cost, GRAPH_ERR *err, _Bool true_if_add, _Bool true_if_replace_or_remove) {
     if (gr == NULL) {
         fprintf (stderr, "Invalid argument: graph\n");
         if (err != NULL) 
             *err = EINVARG;
-        return;
+        return -1;
     }
     if (from < 0 || from >= gr->number_of_vertices) {
         fprintf (stderr, "Invalid argument: vertex 'from'\n");
         if (err != NULL) 
             *err = EINVARG;
-        return;
+        return -1;
     }
     if (to < 0 || to >= gr->number_of_vertices) {
         fprintf (stderr, "Invalid argument: vertex 'to'\n");
         if (err != NULL) 
             *err = EINVARG;
-        return;
+        return -1;
     }
     if (from == to) {
         fprintf (stderr, "Invalid argument: loops are not allowed\n");
         if (err != NULL)
             *err = EINVARG;
-        return;
+        return -1;
     }
     if (cost < 1) {
         fprintf (stderr, "Invalid argument: cost of edge should be more than 0\n");
         if (err != NULL) 
             *err = EINVARG;
-        return;
+        return -1;
     }
-    if (replace) {
-        *err = ESUCCESS;
-        gr->key[from].adjacent_vertices[to] = cost;
+    if (true_if_add) {
+        if (true_if_replace_or_remove) {
+            gr->key[from].adjacent_vertices[to] = cost;
+            if (err != NULL)
+                *err = ESUCCESS;
+        }
+        else {
+            if (gr->key[from].adjacent_vertices[to] == 0) {
+                if (err != NULL)
+                    *err = ESUCCESS;
+                gr->key[from].adjacent_vertices[to] = cost;
+            }
+            else {
+                fprintf (stdout, "The edge already exists\n");
+                if (err != NULL)
+                    *err = EEXIST;
+                return -1;
+            } 
+        }
+        return 0;
     }
     else {
-        if (gr->key[from].adjacent_vertices[to] == 0) {
-            *err = ESUCCESS;
-            gr->key[from].adjacent_vertices[to] = cost;
+        if (true_if_replace_or_remove) {
+            gr->key[from].adjacent_vertices[to] = 0;
+            if (err != NULL)
+                *err = ESUCCESS;
+            return 0;
         }
-        else 
-            *err = EEXIST;
+        else {
+            if (gr->key[from].adjacent_vertices[to] == 0) {
+                fprintf (stdout, "The edge doesn't exists\n");
+                if (err != NULL)
+                    *err = ENEXIST;
+                return 0;
+            }
+            else {
+                if (err != NULL)
+                    *err = ESUCCESS;
+                return gr->key[from].adjacent_vertices[to];
+            }
+        }
     }
-    return;
+    return 0;
 }
 
 void add_edge (graph *gr, int from, int to, int cost, GRAPH_ERR *err) {
-    edge (gr, from, to, cost, err, 0);
+    int x = edge (gr, from, to, cost, err, 1, 0);
     return;
 }
 
 void add_or_replace_edge (graph *gr, int from, int to, int cost, GRAPH_ERR *err) {
-    edge (gr, from, to, cost, err, 1);
+    int x = edge (gr, from, to, cost, err, 1, 1);
     return;
+}
+
+void remove_edge (graph *gr, int from, int to, GRAPH_ERR *err) {
+    int x = edge (gr, from, to, 1, err, 0, 1);
+    return;
+}
+
+int edge_cost (graph *gr, int from, int to, GRAPH_ERR *err) {
+    return edge (gr, from, to, 1, err, 0, 0);
 }
