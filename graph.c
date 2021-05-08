@@ -82,5 +82,51 @@ void print_graph (graph *gr, GRAPH_ERR *err) {
             fprintf (stdout, "%d\t", gr->key[i].adjacent_vertices[j]);
         fprintf (stdout, "\n");
     }
+    for (int i = 0; i < gr->number_of_vertices; i++)
+        fprintf (stdout, "%d\t%d\n", i, gr->key[i].value);
+    *err = ESUCCESS;
     return;
 }
+
+void add_edge (graph *gr, int from, int to, int cost, GRAPH_ERR *err) {
+    if (gr == NULL) {
+        fprintf (stderr, "Invalid argument: graph\n");
+        if (err != NULL) 
+            *err = EINVARG;
+        return;
+    }
+    if (from < 0 || from >= gr->number_of_vertices) {
+        fprintf (stderr, "Invalid argument: vertex 'from'\n");
+        if (err != NULL) 
+            *err = EINVARG;
+        return;
+    }
+    if (to < 0 || to >= gr->number_of_vertices) {
+        fprintf (stderr, "Invalid argument: vertex 'to'\n");
+        if (err != NULL) 
+            *err = EINVARG;
+        return;
+    }
+    if (from == to) {
+        fprintf (stderr, "Invalid argument: loops are not allowed\n");
+        if (err != NULL)
+            *err = EINVARG;
+        return;
+    }
+    if (gr->key[from].adjacent_vertices[to] != 0) {
+        fprintf (stderr, "The edge already exists\n");
+        if (err != NULL) 
+            *err = EEXIST;
+        return;
+    }
+    if (cost < 1) {
+        fprintf (stderr, "Invalid argument: cost of edge should be more than 0\n");
+        if (err != NULL) 
+            *err = EINVARG;
+        return;
+    }
+    gr->key[from].adjacent_vertices[to] = cost;
+    *err = ESUCCESS;
+    return;
+}
+
