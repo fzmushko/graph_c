@@ -2,12 +2,12 @@
 #define _GRAPH_H_
 
 typedef struct vertex {
-    int *arr;
+    int *adjacent_vertices;
     int value;
 } vertex;
 
 typedef struct graph {
-    vertex *vertices;
+    vertex *key;
     int number_of_vertices;
 } graph;
 
@@ -19,7 +19,9 @@ typedef enum {
 
 graph *create_graph (int n, GRAPH_ERR *err);
 
-void remove_graph (graph **graph, GRAPH_ERR *err);
+void remove_graph (graph **gr, GRAPH_ERR *err);
+
+void print_graph (graph *gr, GRAPH_ERR *err);
 
 /*
 void add_edge (int u, int v, int cost, GRAPH_ERR *err);
