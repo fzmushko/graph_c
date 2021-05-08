@@ -151,7 +151,7 @@ int edge (graph *gr, int from, int to, int cost, GRAPH_ERR *err, _Bool true_if_a
         }
         else {
             if (gr->key[from].adjacent_vertices[to] == 0) {
-                fprintf (stdout, "The edge doesn't exists\n");
+                fprintf (stdout, "The edge doesn't exist\n");
                 if (err != NULL)
                     *err = ENEXIST;
                 return 0;
@@ -225,8 +225,20 @@ int value (graph *gr, int vertex_key, int recieved_value, GRAPH_ERR *err, _Bool 
                 *err = ESUCCESS;
             return 0;
         }
+        else {
+            if (gr->key[vertex_key].value == vertex_without_value) {
+                fprintf (stdout, "The value doesn't exist");
+                if (err != NULL)
+                    *err = ENEXIST;
+                return 0;
+            }
+            else {
+                if (err != NULL)
+                    *err = ESUCCESS;
+                return gr->key[vertex_key].value;
+            }
+        }
     }
-
     return 0;
 }
 
@@ -243,4 +255,8 @@ void add_or_replace_value (graph *gr, int vertex_key, int recieved_value, GRAPH_
 void remove_value (graph *gr, int vertex_key, GRAPH_ERR *err) {
     int x = value (gr, vertex_key, 0, err, 0, 1);
     return;
+}
+
+int get_value (graph *gr, int vertex_key, GRAPH_ERR *err) {
+    return value (gr, vertex_key, 0, err, 0, 0);
 }

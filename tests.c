@@ -494,6 +494,51 @@ int main() {
 
 
 
+    x = get_value (NULL, 0, &err);
+    fprintf (stdout, "Test_58_get_value_from_NULL_graph:\n");
+    if (err != EINVARG || x != -1)
+        fprintf (stdout, "Test_58\t failed\n\n");
+    else
+        fprintf (stdout, "Test_58\t passed\n\n");
+    err = ESUCCESS;
+    x = get_value (gr, -1, &err);
+    fprintf (stdout, "Test_59_get_value_from_vertex_<_0:\n");
+    if (err != EINVARG || x != -1)
+        fprintf (stdout, "Test_59\t failed\n\n");
+    else
+        fprintf (stdout, "Test_59\t passed\n\n");
+    err = ESUCCESS;
+    x = get_value (gr, n, &err);
+    fprintf (stdout, "Test_60_get_value_from_vertex_>_n:\n");
+    if (err != EINVARG || x != -1)
+        fprintf (stdout, "Test_60\t failed\n\n");
+    else
+        fprintf (stdout, "Test_60\t passed\n\n");
+    err = ESUCCESS;
+    x = get_value (gr, 1, &err);
+    fprintf (stdout, "Test_61_get_value:\n");
+    if (err != ESUCCESS || x != 2)
+        fprintf (stdout, "Test_61\t failed\n\n");
+    else
+        fprintf (stdout, "Test_61\t passed\n\n");
+    x = get_value (gr, 0, &err);
+    fprintf (stdout, "Test_62_vertex_with_no_value:\n");
+    if (err != ENEXIST || x != 0)
+        fprintf (stdout, "Test_62\t failed\n\n");
+    else
+        fprintf (stdout, "Test_62\t passed\n\n");
+
+    
+    print_graph (gr, &err);
+    fprintf (stdout, "Test_6_print_graph:\n");
+    if (err != ESUCCESS)
+        fprintf (stdout, "Test_6\t failed\n\n");
+    else
+        fprintf (stdout, "Test_6\t passed\n\n");
+
+
+
+
     
 
 
