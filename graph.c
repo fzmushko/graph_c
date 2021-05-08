@@ -88,7 +88,7 @@ void print_graph (graph *gr, GRAPH_ERR *err) {
     return;
 }
 
-void add_edge (graph *gr, int from, int to, int cost, GRAPH_ERR *err) {
+void edge (graph *gr, int from, int to, int cost, GRAPH_ERR *err, _Bool replace) {
     if (gr == NULL) {
         fprintf (stderr, "Invalid argument: graph\n");
         if (err != NULL) 
@@ -113,20 +113,33 @@ void add_edge (graph *gr, int from, int to, int cost, GRAPH_ERR *err) {
             *err = EINVARG;
         return;
     }
-    if (gr->key[from].adjacent_vertices[to] != 0) {
-        fprintf (stderr, "The edge already exists\n");
-        if (err != NULL) 
-            *err = EEXIST;
-        return;
-    }
     if (cost < 1) {
         fprintf (stderr, "Invalid argument: cost of edge should be more than 0\n");
         if (err != NULL) 
             *err = EINVARG;
         return;
     }
-    gr->key[from].adjacent_vertices[to] = cost;
-    *err = ESUCCESS;
+    if (replace) {
+        *err = ESUCCESS;
+        gr->key[from].adjacent_vertices[to] = cost;
+    }
+    else {
+        if (gr->key[from].adjacent_vertices[to] == 0) {
+            *err = ESUCCESS;
+            gr->key[from].adjacent_vertices[to] = cost;
+        }
+        else 
+            *err = EEXIST;
+    }
     return;
 }
 
+void add_edge (graph *gr, int from, int to, int cost, GRAPH_ERR *err) {
+    edge (gr, from, to, cost, err, 0);
+    return;
+}
+
+void add_or_replace_edge (graph *gr, int from, int to, int cost, GRAPH_ERR *err) {
+    edge (gr, from, to, cost, err, 1);
+    return;
+}
