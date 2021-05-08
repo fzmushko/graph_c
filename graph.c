@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-const int vertex_without_value = 1000000007;
+const int vertex_without_value = -1;
 
 graph *create_graph (int n, GRAPH_ERR *err) {
     if (n < 1) {
@@ -183,4 +183,47 @@ void remove_edge (graph *gr, int from, int to, GRAPH_ERR *err) {
 
 int edge_cost (graph *gr, int from, int to, GRAPH_ERR *err) {
     return edge (gr, from, to, 1, err, 0, 0);
+}
+
+int value (graph *gr, int vertex_key, int recieved_value, GRAPH_ERR *err, _Bool true_if_add, _Bool true_if_replace_or_remove) {
+    if (gr == NULL) {
+        fprintf (stderr, "Invalid argument: graph\n");
+        if (err != NULL) 
+            *err = EINVARG;
+        return -1;
+    }
+    if (vertex_key < 0 || vertex_key >= gr->number_of_vertices) {
+        fprintf (stderr, "Invalid argument: vertex key\n");
+        if (err != NULL) 
+            *err = EINVARG;
+        return -1;
+    }
+    if (recieved_value < 0) {
+        fprintf (stderr, "Invalid argument: value should be 0 or more\n");
+        if (err != NULL) 
+            *err = EINVARG;
+        return -1;
+    }
+    if (true_if_add) {
+        if (!true_if_replace_or_remove && gr->key[vertex_key].value != -1) {
+            fprintf (stdout, "The value already exists");
+            if (err != NULL)
+                *err = EEXIST;
+            return -1;
+        }
+        else {
+            gr->key[vertex_key].value = recieved_value;
+            if (err != NULL)
+                *err = ESUCCESS;
+            return 0;
+        }
+    }
+
+
+    return 0;
+}
+
+void add_value (graph *gr, int vertex_key, int recieved_value, GRAPH_ERR *err) {
+    int x = value (gr, vertex_key, recieved_value, err, 1, 0);
+    return;
 }

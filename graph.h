@@ -35,9 +35,11 @@ void remove_edge (graph *gr, int from, int to, GRAPH_ERR *err);
 
 int edge_cost (graph *gr, int from, int to, GRAPH_ERR *err);
 
-/*
-void add_value (int u, int vl, GRAPH_ERR *err);
+int value (graph *gr, int vertex_key, int recieved_value, GRAPH_ERR *err, _Bool true_if_add, _Bool true_if_replace_or_remove);
 
+void add_value (graph *gr, int vertex_key, int recieved_value, GRAPH_ERR *err);
+
+/*
 void add_or_replace_value (int u, int vl, GRAPH_ERR *err);
 
 int vertex_value (int u, GRAPH_ERR *err);
