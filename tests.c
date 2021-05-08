@@ -273,8 +273,74 @@ int main() {
 
 
     
+    int x = 0;
+    x = edge_cost (NULL, 0, 1, &err);
+    fprintf (stdout, "Test_33_edge_cost_in_NULL_graph:\n");
+    if (err != EINVARG || x != -1)
+        fprintf (stdout, "Test_33\t failed\n\n");
+    else
+        fprintf (stdout, "Test_33\t passed\n\n");
+    err = ESUCCESS;
+    x = edge_cost (gr, -1, 1, &err);
+    fprintf (stdout, "Test_34_edge_cost_from_<_0:\n");
+    if (err != EINVARG || x != -1)
+        fprintf (stdout, "Test_34\t failed\n\n");
+    else
+        fprintf (stdout, "Test_34\t passed\n\n");
+    err = ESUCCESS;
+    x = edge_cost (gr, n, 1, &err);
+    fprintf (stdout, "Test_35_edge_cost_from_>_n:\n");
+    if (err != EINVARG || x != -1)
+        fprintf (stdout, "Test_35\t failed\n\n");
+    else
+        fprintf (stdout, "Test_35\t passed\n\n");
+    err = ESUCCESS;
+    x = edge_cost (gr, 0, -1, &err);
+    fprintf (stdout, "Test_36_edge_cost_to_<_0:\n");
+    if (err != EINVARG || x != -1)
+        fprintf (stdout, "Test_36\t failed\n\n");
+    else
+        fprintf (stdout, "Test_36\t passed\n\n");
+    err = ESUCCESS;
+    x = edge_cost (gr, 0, n, &err);
+    fprintf (stdout, "Test_37_edge_cost_to_>_n:\n");
+    if (err != EINVARG || x != -1)
+        fprintf (stdout, "Test_37\t failed\n\n");
+    else
+        fprintf (stdout, "Test_37\t passed\n\n");
+    err = ESUCCESS;
+    x = edge_cost (gr, 0, 0, &err);
+    fprintf (stdout, "Test_38_edge_cost_loop:\n");
+    if (err != EINVARG || x != -1)
+        fprintf (stdout, "Test_38\t failed\n\n");
+    else
+        fprintf (stdout, "Test_38\t passed\n\n");
+    err = ESUCCESS;
+    x = edge_cost  (gr, 0, 2, &err);
+    fprintf (stdout, "Test_39_edge_cost:\n");
+    if (err != ESUCCESS || x != 3)
+        fprintf (stdout, "Test_39\t failed\n\n");
+    else
+        fprintf (stdout, "Test_39\t passed\n\n");
+    x = edge_cost (gr, 1, 0, &err);
+    fprintf (stdout, "Test_40_edge_cost_zero:\n");
+    if (err != ENEXIST || x != 0)
+        fprintf (stdout, "Test_40\t failed\n\n");
+    else
+        fprintf (stdout, "Test_40\t passed\n\n");
 
     
+    print_graph (gr, &err);
+    fprintf (stdout, "Test_6_print_graph:\n");
+    if (err != ESUCCESS)
+        fprintf (stdout, "Test_6\t failed\n\n");
+    else
+        fprintf (stdout, "Test_6\t passed\n\n");
+
+    
+    
+
+
 
 
 
