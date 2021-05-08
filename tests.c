@@ -429,7 +429,7 @@ int main() {
     else
         fprintf (stdout, "Test_51\t passed\n\n");
     add_or_replace_value (gr, 1, 2, &err);
-    fprintf (stdout, "Test_46_add_or_replace_value_already_exists:\n");
+    fprintf (stdout, "Test_52_add_or_replace_value_already_exists:\n");
     if (err != ESUCCESS || gr->key[1].value != 2)
         fprintf (stdout, "Test_52\t failed\n\n");
     else
@@ -445,6 +445,56 @@ int main() {
 
 
 
+
+
+
+    remove_value (NULL, 0, &err);
+    fprintf (stdout, "Test_53_remove_value_from_NULL_graph:\n");
+    if (err != EINVARG)
+        fprintf (stdout, "Test_53\t failed\n\n");
+    else
+        fprintf (stdout, "Test_53\t passed\n\n");
+    err = ESUCCESS;
+    remove_value (gr, -1, &err);
+    fprintf (stdout, "Test_54_remove_value_from_vertex_<_0:\n");
+    if (err != EINVARG)
+        fprintf (stdout, "Test_54\t failed\n\n");
+    else
+        fprintf (stdout, "Test_54\t passed\n\n");
+    err = ESUCCESS;
+    remove_value (gr, n, &err);
+    fprintf (stdout, "Test_55_remove_value_from_vertex_>_n:\n");
+    if (err != EINVARG)
+        fprintf (stdout, "Test_55\t failed\n\n");
+    else
+        fprintf (stdout, "Test_55\t passed\n\n");
+    err = ESUCCESS;
+    remove_value  (gr, 0, &err);
+    fprintf (stdout, "Test_56_remove_value:\n");
+    if (err != ESUCCESS || gr->key[0].value != -1)
+        fprintf (stdout, "Test_56\t failed\n\n");
+    else
+        fprintf (stdout, "Test_56\t passed\n\n");
+    remove_value (gr, 2, &err);
+    fprintf (stdout, "Test_57_remove_no_value:\n");
+    if (err != ESUCCESS || gr->key[2].value != -1)
+        fprintf (stdout, "Test_57\t failed\n\n");
+    else
+        fprintf (stdout, "Test_57\t passed\n\n");
+
+
+    print_graph (gr, &err);
+    fprintf (stdout, "Test_6_print_graph:\n");
+    if (err != ESUCCESS)
+        fprintf (stdout, "Test_6\t failed\n\n");
+    else
+        fprintf (stdout, "Test_6\t passed\n\n");
+
+
+
+
+
+    
 
 
 

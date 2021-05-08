@@ -43,8 +43,7 @@ void add_or_replace_value (graph *gr, int vertex_key, int recieved_value, GRAPH_
 
 /*
 int vertex_value (int u, GRAPH_ERR *err);
-
-void remove_value (int i, GRAPH_ERR *err);
 */
+void remove_value (graph *gr, int vertex_key, GRAPH_ERR *err);
 
 #endif

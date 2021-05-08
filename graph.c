@@ -218,7 +218,14 @@ int value (graph *gr, int vertex_key, int recieved_value, GRAPH_ERR *err, _Bool 
             return 0;
         }
     }
-
+    else {
+        if (true_if_replace_or_remove) {
+            gr->key[vertex_key].value = vertex_without_value;
+            if (err != NULL)
+                *err = ESUCCESS;
+            return 0;
+        }
+    }
 
     return 0;
 }
@@ -230,5 +237,10 @@ void add_value (graph *gr, int vertex_key, int recieved_value, GRAPH_ERR *err) {
 
 void add_or_replace_value (graph *gr, int vertex_key, int recieved_value, GRAPH_ERR *err) {
     int x = value (gr, vertex_key, recieved_value, err, 1, 1);
+    return;
+}
+
+void remove_value (graph *gr, int vertex_key, GRAPH_ERR *err) {
+    int x = value (gr, vertex_key, 0, err, 0, 1);
     return;
 }
